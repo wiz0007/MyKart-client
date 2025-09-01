@@ -28,7 +28,7 @@ const AddressSection = ({ userId, onProceed }) => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5000/api/addresses/${userId}`,
+        `https://my-kart-server-3.onrender.com/api/addresses/${userId}`,
         { headers: authHeader }
       );
       setAddresses(res.data || []);
@@ -70,7 +70,7 @@ const AddressSection = ({ userId, onProceed }) => {
     setSubmitting(true);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/addresses",
+        "https://my-kart-server-3.onrender.com/api/addresses",
         { userId, ...form },
         { headers: authHeader }
       );

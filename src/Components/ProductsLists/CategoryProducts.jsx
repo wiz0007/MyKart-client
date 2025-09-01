@@ -8,7 +8,7 @@ const CategoryProducts = ({ category }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/products/category/${category}`)
+      .get(`https://my-kart-server-3.onrender.com/api/products/category/${category}`)
       .then((res) => setProducts(res.data))
       .catch((err) => console.log(err));
   }, [category]);
@@ -23,7 +23,7 @@ const CategoryProducts = ({ category }) => {
             key={product._id} 
             className={styles.card}
           >
-            <img src={`http://localhost:5000${product.image}`} alt={product.name} />
+            <img src={`https://my-kart-server-3.onrender.com${product.image}`} alt={product.name} />
             <div className={styles.productTitle}>{product.name}</div>
             <div className={styles.productPrice}>From ₹{product.price}</div>
           </Link>

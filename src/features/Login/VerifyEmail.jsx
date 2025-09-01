@@ -11,7 +11,7 @@ const VerifyEmail = () => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/auth/verify-email/${token}`);
+        const res = await axios.get(`https://my-kart-server-3.onrender.com/api/auth/verify-email/${token}`);
         setMessage(res.data.msg || "Email verified successfully.");
         setSuccess(true);
 

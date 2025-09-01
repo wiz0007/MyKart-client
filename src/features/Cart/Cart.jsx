@@ -19,7 +19,7 @@ const Cart = () => {
     }
 
     axios
-      .get("http://localhost:5000/api/cart", {
+      .get("https://my-kart-server-3.onrender.com/api/cart", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -46,7 +46,7 @@ const Cart = () => {
 
     axios
       .put(
-        "http://localhost:5000/api/cart/update",
+        "https://my-kart-server-3.onrender.com/api/cart/update",
         { productId, quantity: newQty },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -60,7 +60,7 @@ const Cart = () => {
   // Remove item from cart
   const removeFromCart = (productId) => {
     axios
-      .delete(`http://localhost:5000/api/cart/remove/${productId}`, {
+      .delete(`https://my-kart-server-3.onrender.com/api/cart/remove/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -94,7 +94,7 @@ const Cart = () => {
             {cartItems.map((item) => (
               <div key={item.product._id} className={styles.cartItem}>
                 <img
-                  src={`http://localhost:5000${item.product.image}`}
+                  src={`https://my-kart-server-3.onrender.com${item.product.image}`}
                   alt={item.product.name}
                 />
                 <div className={styles.details}>

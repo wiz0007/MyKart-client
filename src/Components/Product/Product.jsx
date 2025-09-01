@@ -12,7 +12,7 @@ const Product = () => {
   useEffect(() => {
     // fetch product details
     axios
-      .get(`http://localhost:5000/api/products/${id}`)
+      .get(`https://my-kart-server-3.onrender.com/api/products/${id}`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.log(err));
 
@@ -20,7 +20,7 @@ const Product = () => {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/api/cart", {
+        .get("https://my-kart-server-3.onrender.com/api/cart", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -36,7 +36,7 @@ const Product = () => {
   const addToCart = async (productId) => {
     try {
       await axios.post(
-        "http://localhost:5000/api/cart/add",
+        "https://my-kart-server-3.onrender.com/api/cart/add",
         { productId, quantity: 1 },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -53,7 +53,7 @@ const Product = () => {
       <div className={styles.productPage}>
         <div className={styles.imageSection}>
           <img
-            src={`http://localhost:5000${product.image}`}
+            src={`https://my-kart-server-3.onrender.com${product.image}`}
             alt={product.name}
           />
         </div>
