@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+.navContainer {
+  padding: 0.5% 7% 0.5% 7%;
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.navContainer .searchTab {
+  display: flex;
+  flex-direction: row;
+  justify-content: none;
+  align-items: center;
+  background-color: #f1f5ff;
+  padding: 10px 15px;
+  border-radius: 999px;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+@media (max-width: 580px) {
+  .navContainer .searchTab {
+    display: none;
+  }
+}
+.navContainer .searchIcon {
+  font-size: 18px;
+  color: #555;
+  margin-right: 10px;
+}
+.navContainer .searchIcon:hover {
+  cursor: pointer;
+}
+.navContainer .input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+}
+.navContainer .input::-moz-placeholder {
+  color: #555;
+}
+.navContainer .input::placeholder {
+  color: #555;
+}
+.navContainer .navRight {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.navContainer .login,
+.navContainer .cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: none;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: #000;
+  font-size: 14px;
+}
+.navContainer .icon {
+  font-size: 20px;
+}
+.navContainer .arrowIcon {
+  font-size: 14px;
+}
+.navContainer .moreOptions {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: none;
+  align-items: center;
+  gap: 16px;
+  font-family: sans-serif;
+}
+.navContainer .label {
+  font-size: 14px;
+  color: #000;
+}
+.navContainer .menuIcon {
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.navContainer .menuIcon:hover {
+  background-color: #eee;
+}
+.navContainer .dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 0;
+  width: 200px;
+  z-index: 10;
+}
+.navContainer .dropdownItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.navContainer .dropdownItem:hover {
+  background-color: #f1f1f1;
+}
+.navContainer .icon {
+  font-size: 18px;
+  color: #333;
+}
+.navContainer .loginContainer {
+  position: relative;
+  font-family: sans-serif;
+}
+.navContainer .loginButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: none;
+  align-items: center;
+  gap: 6px;
+  background-color: #fbfbfc;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: #070707;
+  cursor: pointer;
+  font-size: 14px;
+}
+.navContainer .loginButton:hover {
+  background-color: rgb(100, 100, 235);
+  color: white;
+}
+.navContainer .loginButton:hover .icon {
+  color: white;
+}
+.navContainer .icon {
+  font-size: 16px;
+}
+.navContainer .dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 240px;
+  border-radius: 8px;
+  padding: 10px 0;
+  z-index: 10;
+}
+.navContainer .topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+.navContainer .signup {
+  color: #2874f0;
+  font-weight: 600;
+  text-decoration: none;
+}
+.navContainer .signup:hover {
+  text-decoration: underline;
+}
+.navContainer .menuItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: none;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+.navContainer .menuItem:hover {
+  background-color: #f5f5f5;
+}
+.navContainer .menuItem svg {
+  font-size: 16px;
+}/*# sourceMappingURL=Navbar.module.css.map */

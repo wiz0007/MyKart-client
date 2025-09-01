@@ -1,0 +1,17 @@
+@use "../../styles/mixin" as *;
+
+
+.menuContainer {
+   padding: 85px 0px 10px 1%;
+  @include Flex(row, center, center);
+  
+  width: 99%;
+}
+
+.contents{
+  padding: 9px;
+  width: 98%;
+  background-color: #fff;
+  @include Flex(row, space-around, center);
+  flex-wrap: wrap;
+}

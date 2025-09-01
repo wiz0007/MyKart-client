@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+.addressSection {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.header h2 {
+  font-size: 1.4rem;
+  color: #333;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+}
+.header .addButton {
+  background: #007bff;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.header .addButton:hover {
+  background: #0056b3;
+}
+
+.addressCard {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+.addressCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+.addressCard .details {
+  font-size: 1rem;
+  color: #444;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+}
+.addressCard .actions {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+}
+.addressCard .actions button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s ease;
+}
+.addressCard .actions button.edit {
+  background: #ffc107;
+  color: #fff;
+}
+.addressCard .actions button.edit:hover {
+  background: #e0a800;
+}
+.addressCard .actions button.delete {
+  background: #dc3545;
+  color: #fff;
+}
+.addressCard .actions button.delete:hover {
+  background: #b02a37;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #888;
+  padding: 2rem;
+}
+.emptyState p {
+  font-size: 1rem;
+  color: #666;
+  font-family: "Roboto", sans-serif;
+  margin-top: 0.5rem;
+}/*# sourceMappingURL=AddressSection.module.css.map */

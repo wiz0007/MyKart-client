@@ -1,0 +1,39 @@
+.notFound {
+  height: 100vh;
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.notFound .content {
+  max-width: 600px;
+  padding: 2rem;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.notFound .content h1 {
+  font-size: 6rem;
+  color: #ff6b6b;
+  margin-bottom: 0.5rem;
+}
+.notFound .content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.notFound .content p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+.notFound .content .homeBtn {
+  padding: 0.8rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.notFound .content .homeBtn:hover {
+  background-color: #0056b3;
+}/*# sourceMappingURL=ErrorPage.module.css.map */

@@ -1,0 +1,15 @@
+@use "../../styles/mixin" as *;
+
+
+.itemContainer {
+  @include Flex(column, center, center);
+}
+
+.itemImg {
+  @include Image(100px, 100px)
+}
+
+.itemName{
+  @include Text(1rem, black);
+  text-decoration: none;
+}

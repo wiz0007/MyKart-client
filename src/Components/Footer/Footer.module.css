@@ -1,0 +1,66 @@
+.footer {
+  background-color: #111;
+  color: #eee;
+  padding: 2rem 1rem 1rem;
+  font-family: sans-serif;
+}
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer .container .logo, .footer .container .links, .footer .container .newsletter {
+  flex: 1;
+  min-width: 200px;
+}
+.footer .container h2, .footer .container h4 {
+  margin-bottom: 0.5rem;
+}
+.footer .container p, .footer .container li, .footer .container a {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+.footer .container a {
+  text-decoration: none;
+  color: #ccc;
+}
+.footer .container a:hover {
+  color: #fff;
+}
+.footer .container ul {
+  list-style: none;
+  padding: 0;
+}
+.footer .container li {
+  margin-bottom: 0.4rem;
+}
+.footer .container form {
+  display: flex;
+  margin-top: 0.5rem;
+}
+.footer .container form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px 0 0 4px;
+}
+.footer .container form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #f90;
+  color: #000;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+.footer .container form button:hover {
+  background-color: #e80;
+}
+.footer .bottom {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  border-top: 1px solid #333;
+  padding-top: 1rem;
+}/*# sourceMappingURL=Footer.module.css.map */

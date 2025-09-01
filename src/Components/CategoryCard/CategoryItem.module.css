@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemImg {
+  height: 100px;
+  width: 100px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.itemName {
+  font-size: 1rem;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  text-decoration: none;
+}/*# sourceMappingURL=CategoryItem.module.css.map */
