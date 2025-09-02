@@ -64,8 +64,9 @@ const Login = () => {
             Sign Up
           </span>
         </p>
+        <SocialLoginButtons />
       </form>
-      <SocialLoginButtons />
+      
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../Pages/Home/Home";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage"
 import LoginPage from "../Pages/Login/LoginPage";
-import Signup from "../features/Login/Signup";
+import SignupPage from "../Pages/Login/SignupPage";
 import OtpLogin from "../features/Login/OtpLogin";
 import VerifyEmail from "../features/Login/VerifyEmail";
 import ProductPage from "../Pages/ProductPage/ProductPage";
@@ -17,7 +17,7 @@ const AllRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/NotFound" element={<ErrorPage />} />
       <Route path="/Login" element={<LoginPage />} />
-      <Route path="/Signup" element={<Signup />} />
+      <Route path="/Signup" element={<SignupPage />} />
       <Route path="/OtpLogin" element={<OtpLogin />} />
       <Route path="/verify-email/:token" element={<VerifyEmail />} />
       <Route path="/product/:id" element={<ProductPage />} />
