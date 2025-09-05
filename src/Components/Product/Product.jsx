@@ -48,6 +48,15 @@ const Product = () => {
 
   if (!product) return <div className={styles.loading}>Loading...</div>;
 
+  const handleProceed = () => {
+    navigate("/payment", {
+      state: {
+        cartItems,
+        total,
+      },
+    });
+  };
+
   return (
     <div className={styles.mainContainerProduct}>
       <div className={styles.productPage}>
@@ -77,7 +86,7 @@ const Product = () => {
                 Add to Cart
               </button>
             )}
-            <button onClick={() => navigate("/payment")} className={styles.buyBtn}>Buy Now</button>
+            <button onClick={handleProceed} className={styles.buyBtn}>Buy Now</button>
           </div>
         </div>
       </div>
