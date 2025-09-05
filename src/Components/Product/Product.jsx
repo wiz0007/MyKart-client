@@ -77,7 +77,7 @@ const Product = () => {
                 Add to Cart
               </button>
             )}
-            <button className={styles.buyBtn}>Buy Now</button>
+            <button onClick={() => navigate("/payment")} className={styles.buyBtn}>Buy Now</button>
           </div>
         </div>
       </div>
