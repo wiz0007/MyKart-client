@@ -9,7 +9,6 @@ import saleBg from '../../assets/sale-bg.png';
 import summerBg from '../../assets/summer-bg.png';
 import techBg from '../../assets/tech-bg.png';
 
-
 const slidesData = [
   {
     id: 1,
@@ -65,7 +64,6 @@ const Hero = () => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slidesData.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -77,8 +75,9 @@ const Hero = () => {
           className={`${styles.slide} ${
             index === current ? styles.active : ""
           }`}
+          style={{ backgroundImage: `url(${slide.bg})` }}
         >
-          {index === current && <HeroSlide {...slide} />}
+          <HeroSlide {...slide} />
         </div>
       ))}
     </div>

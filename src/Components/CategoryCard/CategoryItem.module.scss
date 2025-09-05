@@ -3,7 +3,11 @@
 
 .itemContainer {
   @include Flex(column, center, center);
+  &:hover {
+    cursor: pointer;
+  }
 }
+
 
 .itemImg {
   @include Image(100px, 100px)

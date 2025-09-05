@@ -1,103 +1,106 @@
 @use "../../styles/mixin" as *;
 
 .heroCarousel {
+  margin: auto;
+  position: relative;
   overflow: hidden;
-  padding: 5px 0px 10px 1%;
-  height: 300px;
-  width: 99%;
+  width: 98%;
+  height: 350px; // fixed consistent height
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 768px) {
-    height: auto;
-    padding: 10px;
+    height: 280px;
+  }
+
+  @media (max-width: 480px) {
+    height: 220px;
   }
 }
 
 .slide {
-  display: none;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slide.active {
-  display: block;
+  opacity: 1;
+  z-index: 1;
 }
 
 .heroSlide {
-  @include Flex(row, center, center);
-  gap: 1rem;
+  @include Flex(row, space-between, center);
+  width: 90%;
+  max-width: 1200px;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  gap: 2rem;
   color: white;
-  padding: 2rem;
 
   .heroContent {
-    @include Flex(row, center, center);
-    flex-wrap: wrap;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: 1rem;
-    padding: 40px;
-
-    img {
-      max-width: 200px;
-      height: auto;
-
-      @media (max-width: 768px) {
-        max-width: 180px;
-      }
-
-      @media (max-width: 480px) {
-        max-width: 140px;
-      }
-    }
 
     h2 {
-      font-size: 2rem;
-
-      @media (max-width: 768px) {
-        font-size: 1.6rem;
-      }
-
-      @media (max-width: 480px) {
-        font-size: 1.3rem;
-      }
+      font-size: 2.2rem;
+      font-weight: 700;
     }
 
     p {
       font-size: 1.2rem;
-
-      @media (max-width: 768px) {
-        font-size: 1rem;
-      }
-
-      @media (max-width: 480px) {
-        font-size: 0.9rem;
-      }
     }
 
     button {
-      padding: 10px 20px;
+      padding: 12px 24px;
       background-color: #ff5722;
       border: none;
+      border-radius: 6px;
       color: white;
-      margin-top: 15px;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.3s;
 
-      @media (max-width: 480px) {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+      &:hover {
+        background-color: #e64a19;
       }
+    }
+  }
+
+  img {
+    flex-shrink: 0;
+    max-height: 220px;
+    width: auto;
+    object-fit: contain;
+
+    @media (max-width: 768px) {
+      max-height: 160px;
+    }
+
+    @media (max-width: 480px) {
+      max-height: 120px;
     }
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
     text-align: center;
+    gap: 1rem;
 
     .heroContent {
-      flex-direction: column;
       align-items: center;
-      padding: 20px;
     }
   }
 }

@@ -20,7 +20,6 @@
   scroll-behavior: smooth;
   padding-bottom: 10px;
 
-  // Hide scrollbar for better UI
   &::-webkit-scrollbar {
     display: none;
   }
@@ -61,5 +60,33 @@
     font-size: 0.9rem;
     font-weight: 600;
     color: #1a1a1a;
+  }
+}
+
+/* See More Card */
+.seeMoreCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff5722;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+
+  img {
+    display: none;
+  }
+
+  .seeMoreText {
+    margin-bottom: 5px;
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    background-color: #e64a19;
   }
 }
