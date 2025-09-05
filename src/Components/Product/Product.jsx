@@ -49,6 +49,7 @@ const Product = () => {
   if (!product) return <div className={styles.loading}>Loading...</div>;
 
   const handleProceed = () => {
+    addToCart(product._id)
     navigate("/payment", {
       state: {
         cartItems,
