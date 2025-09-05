@@ -4,31 +4,10 @@ import axios from "axios";
 import styles from "./Product.module.scss";
 
 const Product = () => {
-  const [cartItems, setCartItems] = useState([]);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [inCart, setInCart] = useState(false); // track if added to cart
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login"); // force login if no token
-      return;
-    }
-
-    axios
-      .get("https://my-kart-server-3.onrender.com/api/cart", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setCartItems(res.data.items);
-        calculateTotal(res.data.items);
-      })
-      .catch((err) => {
-        console.error("Error fetching cart:", err);
-      });
-  }, [token, navigate]);
 
   useEffect(() => {
     // fetch product details
@@ -59,9 +38,7 @@ const Product = () => {
       await axios.post(
         "https://my-kart-server-3.onrender.com/api/cart/add",
         { productId, quantity: 1 },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
       setInCart(true); // show "Go to Cart"
     } catch (err) {
@@ -69,17 +46,17 @@ const Product = () => {
     }
   };
 
-  if (!product) return <div className={styles.loading}>Loading...</div>;
+  const handleBuyNow = async (productId) => {
+    try{
+      addToCart(product._id);
+      navigate("/cart");
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
 
-  const handleProceed = () => {
-    addToCart(product._id);
-    navigate("/payment", {
-      state: {
-        cartItems,
-        total,
-      },
-    });
-  };
+  if (!product) return <div className={styles.loading}>Loading...</div>;
 
   return (
     <div className={styles.mainContainerProduct}>
@@ -110,9 +87,7 @@ const Product = () => {
                 Add to Cart
               </button>
             )}
-            <button onClick={handleProceed} className={styles.buyBtn}>
-              Buy Now
-            </button>
+            <button onClick={handleBuyNow(product._id)} className={styles.buyBtn}>Buy Now</button>
           </div>
         </div>
       </div>
@@ -121,3 +96,4 @@ const Product = () => {
 };
 
 export default Product;
+
