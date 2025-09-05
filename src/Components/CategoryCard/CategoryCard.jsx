@@ -17,7 +17,7 @@ const CategoryCard = () => {
     <div className={styles.menuContainer}>
       <div className={styles.contents}>
         <CategoryItem name="Mobiles and Tablets" image={mobileImg}  link="" /> 
-        <CategoryItem name="Health" image={applianceImg} link="" /> 
+        <CategoryItem name="Home Appliances" image={applianceImg} link="" /> 
         <CategoryItem name="Fashion" image={fashionImg} link="" /> 
         <CategoryItem name="Beauty" image={beautyImg} link="" /> 
       </div>
