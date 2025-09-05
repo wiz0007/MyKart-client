@@ -46,16 +46,6 @@ const Product = () => {
     }
   };
 
-  const handleBuyNow = async (productId) => {
-    try{
-      addToCart(product._id);
-      navigate("/cart");
-    }
-    catch(e){
-      console.log(e);
-    }
-  }
-
   if (!product) return <div className={styles.loading}>Loading...</div>;
 
   return (
@@ -87,7 +77,7 @@ const Product = () => {
                 Add to Cart
               </button>
             )}
-            <button onClick={handleBuyNow(product._id)} className={styles.buyBtn}>Buy Now</button>
+            <button className={styles.buyBtn}>Buy Now</button>
           </div>
         </div>
       </div>
