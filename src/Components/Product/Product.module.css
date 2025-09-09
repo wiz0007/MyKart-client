@@ -1,70 +1,113 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 .mainContainerProduct {
-  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.productPage {
+  width: 80%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: none;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .productPage {
+    flex-direction: column;
+    width: 95%;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+.productPage .imageSection {
+  flex: 1;
   display: flex;
   flex-direction: none;
   justify-content: center;
   align-items: center;
 }
-
-.productPage {
-  width: 70%;
-  display: flex;
-  flex-direction: none;
-  justify-content: space-around;
-  align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-  background: #fafafa;
-}
 .productPage .imageSection img {
   width: 100%;
   max-width: 400px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+.productPage .imageSection img:hover {
+  transform: scale(1.05);
 }
 .productPage .detailsSection {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 .productPage .detailsSection h1 {
   font-size: 2rem;
+  font-weight: 700;
   margin: 0;
+  color: #222;
 }
 .productPage .detailsSection .price {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: #e53935;
 }
 .productPage .detailsSection .description {
   font-size: 1rem;
-  color: #444;
+  line-height: 1.6;
+  color: #555;
 }
 .productPage .detailsSection .buttons {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+}
+.productPage .detailsSection .buttons button {
+  flex: 1;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.productPage .detailsSection .buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .productPage .detailsSection .buttons .cartBtn {
-  padding: 0.8rem 1.5rem;
-  border: none;
   background: #f57c00;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
+  color: #fff;
 }
 .productPage .detailsSection .buttons .buyBtn {
-  padding: 0.8rem 1.5rem;
-  border: none;
   background: #43a047;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
+  color: #fff;
+}
+@media (max-width: 480px) {
+  .productPage .detailsSection .buttons {
+    flex-direction: column;
+  }
+  .productPage .detailsSection .buttons button {
+    width: 100%;
+  }
 }
 
 .loading {
   padding: 2rem;
   text-align: center;
   font-size: 1.2rem;
+  color: #666;
 }/*# sourceMappingURL=Product.module.css.map */
