@@ -1,14 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 .heroCarousel {
-  margin: 2px;
+  margin: auto;
   position: relative;
   overflow: hidden;
   width: 98%;
   height: 350px;
   max-height: 350px;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
   z-index: -1;
 }
 @media (max-width: 768px) {

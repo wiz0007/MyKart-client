@@ -1,15 +1,13 @@
 @use "../../styles/mixin" as *;
 
 .heroCarousel {
-  margin: 2px;
+  margin: auto;
   position: relative;
   overflow: hidden;
   width: 98%;
   height: 350px; // fixed consistent height
   max-height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include Flex(row, center, center);
   z-index: -1;
 
   @media (max-width: 768px) {
