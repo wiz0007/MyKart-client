@@ -43,7 +43,7 @@ const CategoryProducts = ({ category }) => {
           >
             <img
               src={`https://my-kart-server-3.onrender.com${product.image}`}
-              loading="lazy"
+              loading="eager"
               alt={product.name}
             />
             <div className={styles.productTitle}>{product.name}</div>
@@ -59,3 +59,6 @@ const CategoryProducts = ({ category }) => {
     </div>
   );
 };
+
+
+export default CategoryProducts;
