@@ -1,152 +1,175 @@
 @use "../../styles/mixin" as *;
 
+:root {
+  --primary: #2874f0;
+  --hover-bg: #f1f5ff;
+  --text-dark: #222;
+  --transition: all 0.25s ease;
+}
+
 .navContainer {
-  padding: 0.5% 7% 0.5% 7%;
+  padding: 0.5% 7%;
   width: 100%;
   background-color: #fff;
   position: fixed;
   @include Flex(row, space-between, center);
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+
+  @media (max-width: 992px) {
+    padding: 0.5rem 1rem;
+  }
+
+  .logo {
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .logoHead {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logoText {
+      font-size: 0.75rem;
+      color: #777;
+      margin-top: -2px;
+    }
+  }
 
   .searchTab {
     @include Flex(row, none, center);
-    background-color: #f1f5ff; // light blue like your image
+    background-color: var(--hover-bg);
     padding: 10px 15px;
-    border-radius: 999px; // pill shape
+    border-radius: 999px;
     width: 100%;
     max-width: 500px;
-    box-sizing: border-box;
-  }
-  @media (max-width: 580px) {
-    .searchTab{
-      display: none;
+    transition: var(--transition);
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px var(--primary);
     }
-  }
 
-  .searchIcon {
-    font-size: 18px;
-    color: #555;
-    margin-right: 10px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .input {
-    border: none;
-    outline: none;
-    background: transparent;
-    flex: 1;
-    font-size: 14px;
-    color: #333;
-
-    &::placeholder {
+    .searchIcon {
+      font-size: 18px;
       color: #555;
+      margin-right: 10px;
+    }
+
+    .input {
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      font-size: 14px;
+      color: var(--text-dark);
     }
   }
 
   .navRight {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-  }
-
-  .login,
-  .cart {
     @include Flex(row, none, center);
-    gap: 6px;
+    gap: 1.2rem;
+  }
+
+  .mobileSearchIcon {
+    display: none;
+    font-size: 1.4rem;
     cursor: pointer;
-    color: #000;
-    font-size: 14px;
-  }
-
-  .icon {
-    font-size: 20px;
-  }
-
-  .arrowIcon {
-    font-size: 14px;
-  }
-
-  .moreOptions {
-    position: relative;
-    @include Flex(row, none, center);
-    gap: 16px;
-    font-family: sans-serif;
-  }
-
-  .label {
-    font-size: 14px;
-    color: #000;
-  }
-
-  .menuIcon {
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 6px;
-    transition: background 0.2s;
+    color: var(--text-dark);
+    transition: var(--transition);
 
     &:hover {
-      background-color: #eee;
+      color: var(--primary);
     }
-  }
-
-  .dropdown {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 10px 0;
-    width: 200px;
-    z-index: 10;
-  }
-
-  .dropdownItem {
-    @include Flex(row, none, center);
-    gap: 12px;
-    padding: 10px 16px;
-    cursor: pointer;
-    font-size: 14px;
-
-    &:hover {
-      background-color: #f1f1f1;
-    }
-  }
-
-  .icon {
-    font-size: 18px;
-    color: #333;
-  }
-
-  .loginContainer {
-    position: relative;
-    font-family: sans-serif;
   }
 
   .loginButton {
     @include Flex(row, none, center);
     gap: 6px;
     background-color: #fbfbfc;
-    padding: 6px 12px;
-    border-radius: 4px;
+    padding: 4px 8px; // 🔹 reduced padding for smaller size
+    border-radius: 6px;
     color: #070707;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px; // 🔹 slightly smaller text
+    transition: all 0.3s ease;
 
     &:hover {
-      background-color: rgb(100, 100, 235);
-      color: white;
+      background-color: #2874f0;
+      color: #fff;
+      transform: scale(1.03);
+
       .icon {
-        color: white;
+        color: #fff;
+      }
+    }
+
+    .icon {
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 3px 6px;
+      font-size: 12px;
+    }
+  }
+
+  .cart {
+    @include Flex(row, none, center);
+    gap: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    color: #000;
+
+    &:hover {
+      color: #2874f0;
+      transform: scale(1.05);
+    }
+
+    .icon {
+      font-size: 20px;
+    }
+
+    .cartText {
+      display: inline-block;
+
+      @media (max-width: 768px) {
+        display: none; // hide "Cart" text for smaller screens
       }
     }
   }
 
-  .icon {
-    font-size: 16px;
+  .menuIcon {
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #333;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    margin-left: 12px; // ✅ balanced spacing from cart
+
+    &:hover {
+      color: #2874f0;
+      transform: scale(1.1);
+    }
+
+    // Always visible
+    @media (max-width: 768px) {
+      display: flex !important;
+      margin-left: 8px; // ✅ bring closer to cart on mobile
+    }
   }
 
+  /* ---------------- Dropdown ---------------- */
   .dropdown {
     position: absolute;
     top: 110%;
@@ -157,6 +180,38 @@
     border-radius: 8px;
     padding: 10px 0;
     z-index: 10;
+    animation: fadeIn 0.25s ease;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .dropdownItem,
+  .menuItem {
+    @include Flex(row, none, center);
+    gap: 12px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: var(--transition);
+
+    &:hover {
+      background-color: var(--hover-bg);
+      color: var(--primary);
+    }
+
+    svg {
+      font-size: 16px;
+    }
   }
 
   .topRow {
@@ -168,29 +223,66 @@
   }
 
   .signup {
-    color: #2874f0;
+    color: var(--primary);
     font-weight: 600;
-    text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       text-decoration: underline;
     }
   }
 
-  .menuItem {
-    @include Flex(row, none, center);
-    gap: 12px;
-    padding: 10px 16px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
+  // 📱 Mobile search bar animation
+  .mobileSearchWrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+    z-index: 90;
 
-    &:hover {
-      background-color: #f5f5f5;
+    &.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
     }
 
-    svg {
-      font-size: 16px;
+    .mobileSearchInner {
+      @include Flex(row, none, center);
+      padding: 10px 16px;
+    }
+
+    .mobileSearchIconInside {
+      font-size: 18px;
+      color: #555;
+      margin-right: 10px;
+    }
+
+    .mobileSearchInput {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0.6rem 5%;
+    .searchTab {
+      display: none;
+    }
+    .mobileSearchIcon {
+      display: block;
+    }
+    .menuIcon {
+      display: flex;
     }
   }
 }

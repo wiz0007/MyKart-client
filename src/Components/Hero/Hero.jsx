@@ -1,87 +1,78 @@
-import React, { useState, useEffect } from "react";
-import HeroSlide from "./HeroSlide";
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { motion } from "framer-motion";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 import styles from "./Hero.module.scss";
 
-import plane from '../../assets/plane.png';
-import sofa from '../../assets/sofa.png';
-import mobile from '../../assets/mobiles.png';
-import saleBg from '../../assets/sale-bg.png';
-import summerBg from '../../assets/summer-bg.png';
-import techBg from '../../assets/tech-bg.png';
+// Importing local assets
+import banner1 from "../../assets/banner1.png";
+import banner2 from "../../assets/banner2.png";
+import banner3 from "../../assets/banner3.png";
 
-const slidesData = [
-  {
-    id: 1,
-    title: 'AirAsia',
-    subtitle: 'Up to 30% Off',
-    description: 'Flash sale for 48Hr',
-    code: 'FLYAIRASIA',
-    img: plane,
-    bg: saleBg,
-  },
-  {
-    id: 2,
-    title: 'Furniture Fiesta',
-    subtitle: 'Flat 40% Off',
-    description: 'Modern & Classic Collections',
-    code: 'SOFA40',
-    img: sofa,
-    bg: summerBg,
-  },
-  {
-    id: 3,
-    title: 'Smartphone Days',
-    subtitle: 'Up to ₹15,000 Off',
-    description: 'Top brands on discount',
-    code: 'MOBILE15K',
-    img: mobile,
-    bg: techBg,
-  },
-  {
-    id: 4,
-    title: 'Monsoon Bonanza',
-    subtitle: 'Grab Coupons & Offers',
-    description: 'Save big on every order',
-    code: 'RAINYSALE',
-    img: plane,
-    bg: summerBg,
-  },
-  {
-    id: 5,
-    title: 'Laptop Fest',
-    subtitle: 'Up to 50% Off',
-    description: 'Gaming & Business Laptops',
-    code: 'LAPTOPFEST',
-    img: mobile,
-    bg: techBg,
-  },
+import offer1 from "../../assets/deal1.png";
+import offer2 from "../../assets/deal1.png";
+import offer3 from "../../assets/deal1.png";
+
+const banners = [banner1, banner2, banner3];
+const offers = [
+  { img: offer1, text: "Top Deals on Mobiles" },
+  { img: offer2, text: "Fashion at 50% Off" },
+  { img: offer3, text: "Electronics Bonanza" },
 ];
 
-const Hero = () => {
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slidesData.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
+const HeroSection = () => {
   return (
-    <div className={styles.heroCarousel}>
-      {slidesData.map((slide, index) => (
-        <div
-          key={index}
-          className={`${styles.slide} ${
-            index === current ? styles.active : ""
-          }`}
-          style={{ backgroundImage: `url(${slide.bg})` }}
+    <section className={styles.heroContainer}>
+      {/* Main Banner Carousel */}
+      <motion.div
+        className={styles.bannerContainer}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Swiper
+          spaceBetween={30}
+          centeredSlides
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          navigation
+          loop
+          modules={[Autoplay, Pagination, Navigation]}
+          className={styles.heroSwiper}
         >
-          <HeroSlide {...slide} />
-        </div>
-      ))}
-    </div>
+          {banners.map((banner, index) => (
+            <SwiperSlide key={index}>
+              <img src={banner} alt={`Banner ${index + 1}`} className={styles.mainBanner} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </motion.div>
+
+      {/* Animated Offer Cards */}
+      <motion.div
+        className={styles.sideOffers}
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+        {offers.map((offer, index) => (
+          <motion.div
+            key={index}
+            className={styles.offerCard}
+            whileHover={{ scale: 1.05, boxShadow: "0 6px 16px rgba(0,0,0,0.2)" }}
+            transition={{ type: "spring", stiffness: 200 }}
+          >
+            <img src={offer.img} alt={offer.text} className={styles.offerImage} />
+            <p className={styles.offerText}>{offer.text}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
   );
 };
 
-export default Hero;
+export default HeroSection;
