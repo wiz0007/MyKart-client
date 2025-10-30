@@ -18,10 +18,10 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post("https://my-kart-server-3.onrender.com/api/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://my-kart-server-3.onrender.com/api/auth/login",
+        { email, password }
+      );
 
       const { token, user } = res.data;
 
@@ -29,46 +29,65 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      navigate("/"); // Go to home
+      navigate("/");
     } catch (err) {
-      setError(err.response?.data?.msg || "Login failed");
+      setError(err.response?.data?.msg || "Login failed. Please try again.");
     }
   };
 
   return (
     <div className={styles.authContainer}>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <h2>Login</h2>
+        <h2 className={styles.heading}>Welcome Back 👋</h2>
+        <p className={styles.subHeading}>Log in to continue shopping</p>
 
         {error && <p className={styles.error}>{error}</p>}
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-        />
+        <div className={styles.inputGroup}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          />
+        </div>
 
-        <button type="submit">Login</button>
-        <p>
+        <div className={styles.inputGroup}>
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+          />
+        </div>
+
+        <button type="submit" className={styles.loginBtn}>
+          Login
+        </button>
+
+        <p className={styles.redirectText}>
           Don't have an account?{" "}
-          <span onClick={() => navigate("/Signup")} className={styles.link}>
+          <span
+            onClick={() => navigate("/Signup")}
+            className={styles.link}
+          >
             Sign Up
           </span>
         </p>
+
+        <div className={styles.divider}>
+          <span>OR</span>
+        </div>
+
         <SocialLoginButtons />
       </form>
-      
     </div>
   );
 };
 
 export default Login;
+

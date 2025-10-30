@@ -4,25 +4,26 @@
   min-height: 100vh;
   width: 100%;
   padding: 2rem;
+  background-color: #f8fafc;
   @include Flex(none, center, center);
-  background-color: #f9f9f9;
+  animation: fadeIn 0.5s ease;
 }
 
 .productPage {
-  width: 80%;
+  width: 85%;
   max-width: 1200px;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  @include Flex(none, space-between, flex-start);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  @include Flex(row, space-between, flex-start);
   gap: 2rem;
+  transition: all 0.3s ease;
 
   @media (max-width: 768px) {
     flex-direction: column;
     width: 95%;
     padding: 1.5rem;
-    gap: 1.5rem;
   }
 
   .imageSection {
@@ -33,11 +34,13 @@
       width: 100%;
       max-width: 400px;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      object-fit: contain;
+
       &:hover {
         transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
       }
     }
   }
@@ -51,65 +54,108 @@
     h1 {
       font-size: 2rem;
       font-weight: 700;
-      margin: 0;
-      color: #222;
+      color: #1e293b;
     }
 
     .price {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 700;
       color: #e53935;
     }
 
     .description {
       font-size: 1rem;
-      line-height: 1.6;
       color: #555;
+      line-height: 1.6;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
     }
 
     .buttons {
       display: flex;
       gap: 1rem;
       margin-top: 1.5rem;
+      flex-wrap: wrap;
 
       button {
         flex: 1;
-        padding: 0.8rem 1.5rem;
+        padding: 0.9rem 1.5rem;
         border: none;
         border-radius: 8px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+        letter-spacing: 0.5px;
 
         &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          transform: translateY(-3px);
         }
       }
 
       .cartBtn {
-        background: #f57c00;
-        color: #fff;
+        background: linear-gradient(135deg, #f57c00, #f9a825);
+        color: white;
+        &:hover {
+          background: linear-gradient(135deg, #f57c00, #fbc02d);
+        }
       }
 
       .buyBtn {
-        background: #43a047;
-        color: #fff;
-      }
-
-      @media (max-width: 480px) {
-        flex-direction: column;
-        button {
-          width: 100%;
+        background: linear-gradient(135deg, #43a047, #66bb6a);
+        color: white;
+        &:hover {
+          background: linear-gradient(135deg, #2e7d32, #66bb6a);
         }
       }
     }
   }
 }
 
-.loading {
-  padding: 2rem;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #666;
+/* Skeleton Loader */
+.loadingContainer {
+  @include Flex(column, center, center);
+  height: 100vh;
+  .skeletonBox {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+  }
+  .skeletonText {
+    width: 150px;
+    height: 20px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
 }
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fadeIn {
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+.slideUp {
+  animation: slideUp 0.8s ease-in-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+

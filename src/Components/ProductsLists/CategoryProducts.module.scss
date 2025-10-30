@@ -2,103 +2,370 @@
 
 .categorySection {
   margin: 2%;
-  padding: 20px;
-  border-radius: 1rem;
-  background-color: #f5f5f5;
+  padding: 24px 20px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f7f8fa 0%, #eceef1 100%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 
   h2 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    margin-bottom: 15px;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    font-family: "Roboto", sans-serif;
+    color: #212121;
+    border-left: 4px solid #2874f0;
+    padding-left: 12px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    h2 {
+      font-size: 1.4rem;
+      padding-left: 8px;
+    }
   }
 }
 
+/* ---------------- Horizontal Slider ---------------- */
 .sliderWrapper {
   @include Flex(row, none, none);
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
+  transition: all 0.3s ease;
 
   &::-webkit-scrollbar {
-    display: none;
+    height: 6px;
   }
+
+  &::-webkit-scrollbar-thumb {
+    background: #cfd2d6;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a8aaac;
+  }
+
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
 }
 
+/* ---------------- Product Card ---------------- */
 .card {
-  max-width: 160px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 18px;
   text-align: center;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  width: 170px;
+  transition: all 0.35s ease;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 6px 16px rgba(40, 116, 240, 0.15);
   }
 
   img {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     object-fit: contain;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    transition: transform 0.4s ease;
+
+    &:hover {
+      transform: scale(1.08);
+    }
   }
 
   .productTitle {
-    font-size: 0.95rem;
+    @include Text(0.95rem, #212121);
     font-weight: 500;
-    color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .productPrice {
-    font-size: 0.9rem;
+    @include Text(0.9rem, #1a1a1a);
     font-weight: 600;
-    color: #1a1a1a;
+    color: #388e3c;
+  }
+
+  @media (max-width: 768px) {
+    width: 140px;
+    padding: 14px;
+
+    img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .productTitle {
+      font-size: 0.85rem;
+    }
+
+    .productPrice {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+/* ---------------- See More Card ---------------- */
+.seeMoreCard {
+  @include Flex(column, center, center);
+  background: linear-gradient(135deg, #2874f0, #0058d6);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 12px;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 170px;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(135deg, #0058d6, #003da8);
+    transform: translateY(-6px);
+  }
+
+  .seeMoreText {
+    margin-bottom: 6px;
+  }
+
+  .arrow {
+    font-size: 1.6rem;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .arrow {
+    transform: translateX(6px);
+  }
+
+  @media (max-width: 768px) {
+    width: 140px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---------------- Skeleton Loader ---------------- */
+.skeleton {
+  background: linear-gradient(90deg, #ececec 25%, #f6f6f6 50%, #ececec 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 12px;
+  height: 230px;
+  width: 170px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    height: 190px;
+    width: 140px;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.categorySection {
+  margin: 50px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+
+  &.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heading {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.swiperContainer {
+  position: relative;
+}
+
+/* ---------------- Product Card - robust replacement ---------------- */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 170px;            /* fixed card width so Swiper layout is stable */
+  min-height: 240px;       /* consistent card height */
+  padding: 16px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  cursor: pointer;
+  overflow: hidden;
+
+  /* Remove possible inherited link underline / color problems */
+  text-decoration: none !important;
+  color: inherit !important;
+
+  &:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  }
+}
+
+/* keep images perfectly centered and constrained */
+.imageWrapper {
+  width: 100%;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+
+  img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+}
+
+/* Title: allow wrap, clamp to 2 lines, ensure center alignment */
+.productTitle {
+  width: 100%;
+  padding: 0 6px;
+  margin: 6px 0;
+  color: #333;
+  font-size: 0.94rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+
+  /* multiline clamp (WebKit + fallback) */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;   /* show up to 2 lines */
+  overflow: hidden;
+  word-break: break-word;
+  white-space: normal;
+  text-overflow: ellipsis;
+
+  /* fallback for non-webkit: force max-height to roughly 2 lines */
+  max-height: calc(1.25rem * 2.2);
+}
+
+/* Price centered and consistent */
+.productPrice {
+  width: 100%;
+  margin-top: 6px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #1a8917;
+  text-align: center;
+}
+
+/* responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    width: 140px;
+    min-height: 200px;
+    padding: 14px;
+  }
+  .imageWrapper { height: 110px; }
+  .imageWrapper img { width: 90px; height: 90px; }
+  .productTitle { font-size: 0.85rem; -webkit-line-clamp: 2; }
+  .productPrice { font-size: 0.8rem; }
+}
+
+
+/* Swiper controls */
+.swiperWrapper {
+  position: relative;
+  width: 100%;
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #2874f0;
+    background: #fff;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    top: 40%;
+    transform: translateY(-50%);
+
+    &:hover {
+      background: #2874f0;
+      color: #fff;
+      transform: scale(1.1);
+    }
+  }
+
+  .swiper-button-prev {
+    left: -10px;
+  }
+
+  .swiper-button-next {
+    right: -10px;
+  }
+
+  @media (max-width: 768px) {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
   }
 }
 
 /* See More Card */
 .seeMoreCard {
+  background: linear-gradient(135deg, #2874f0, #6ca0ff);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #ff5722;
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
-
-  img {
-    display: none;
-  }
 
   .seeMoreText {
     margin-bottom: 5px;
   }
 
   .arrow {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   &:hover {
-    background-color: #e64a19;
+    background: linear-gradient(135deg, #1a5ad9, #4a8cff);
   }
-}
-.skeleton {
-  background: linear-gradient(90deg, #eee 25%, #ddd 50%, #eee 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  height: 200px; // match your product card height
-  border-radius: 8px;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
 }
