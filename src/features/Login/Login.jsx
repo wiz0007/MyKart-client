@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import styles from "./Login.module.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
 import SocialLoginButtons from "./SocialLoginButtons";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -24,11 +26,8 @@ const Login = () => {
       );
 
       const { token, user } = res.data;
-
-      // Store token and user
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.msg || "Login failed. Please try again.");
@@ -54,15 +53,24 @@ const Login = () => {
           />
         </div>
 
+        {/* 👇 Password input with eye toggle */}
         <div className={styles.inputGroup}>
-          <input
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
+          <div className={styles.passwordContainer}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
+            <span
+              className={styles.eyeIcon}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
+          </div>
         </div>
 
         <button type="submit" className={styles.loginBtn}>
@@ -71,10 +79,7 @@ const Login = () => {
 
         <p className={styles.redirectText}>
           Don't have an account?{" "}
-          <span
-            onClick={() => navigate("/Signup")}
-            className={styles.link}
-          >
+          <span onClick={() => navigate("/Signup")} className={styles.link}>
             Sign Up
           </span>
         </p>
@@ -90,4 +95,3 @@ const Login = () => {
 };
 
 export default Login;
-

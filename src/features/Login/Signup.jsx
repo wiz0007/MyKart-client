@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import styles from "./Login.module.scss"; // using same shared style file
+import styles from "./Login.module.scss";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
+import SocialLoginButtons from "./SocialLoginButtons";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -66,15 +69,24 @@ const Signup = () => {
           />
         </div>
 
+        {/* 👇 Password input with eye toggle */}
         <div className={styles.inputGroup}>
-          <input
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
+          <div className={styles.passwordContainer}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
+            <span
+              className={styles.eyeIcon}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </span>
+          </div>
         </div>
 
         <button type="submit" className={styles.loginBtn}>
@@ -83,17 +95,21 @@ const Signup = () => {
 
         <p className={styles.redirectText}>
           Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
-            className={styles.link}
-          >
+          <span onClick={() => navigate("/login")} className={styles.link}>
             Login
           </span>
         </p>
+
+        <div className={styles.divider}>
+          <span>OR</span>
+        </div>
+
+        <SocialLoginButtons />
       </form>
     </div>
   );
 };
 
 export default Signup;
+
 

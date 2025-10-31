@@ -9,14 +9,15 @@ const ErrorPage = () => {
     <>
       <Navbar />
       <div className={styles.notFound}>
+        <div className={styles.glowCircle}></div>
         <div className={styles.content}>
           <h1>404</h1>
           <h2>Page Not Found</h2>
           <p>
-            Sorry, the page you are looking for doesn't exist or has been moved.
+            Oops! The page you’re looking for doesn’t exist or might have been moved.
           </p>
           <Link to="/" className={styles.homeBtn}>
-            Go to Homepage
+            Back to Homepage
           </Link>
         </div>
       </div>
