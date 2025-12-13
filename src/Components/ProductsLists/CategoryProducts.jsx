@@ -17,7 +17,9 @@ const CategoryProducts = ({ category }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://my-kart-server-3.onrender.com/api/products/category/${category}`)
+      .get(
+        `https://my-kart-server-3.onrender.com/api/products/category/${category}`
+      )
       .then((res) => setProducts(res.data))
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
@@ -38,11 +40,16 @@ const CategoryProducts = ({ category }) => {
 
   if (loading) {
     return (
-      <div className={styles.categorySection}>
-        <h2>Best of {category}</h2>
-        <div className={styles.sliderWrapper}>
+      <div className={`${styles.categorySection} ${styles.animate}`}>
+        <h2 className={styles.heading}>Best of {category}</h2>
+
+        <div className={styles.skeletonSwiper}>
           {[...Array(5)].map((_, i) => (
-            <div key={i} className={`${styles.card} ${styles.skeleton}`}></div>
+            <div key={i} className={styles.skeletonCard}>
+              <div className={styles.skeletonImage}></div>
+              <div className={styles.skeletonLine}></div>
+              <div className={styles.skeletonLineShort}></div>
+            </div>
           ))}
         </div>
       </div>
@@ -50,7 +57,9 @@ const CategoryProducts = ({ category }) => {
   }
 
   return (
-    <div className={`${styles.categorySection} ${animate ? styles.animate : ""}`}>
+    <div
+      className={`${styles.categorySection} ${animate ? styles.animate : ""}`}
+    >
       <h2 className={styles.heading}>Best of {category}</h2>
       <div
         className={styles.swiperContainer}

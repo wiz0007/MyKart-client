@@ -75,7 +75,7 @@ const Navbar = () => {
   return (
     <header className={styles.navContainer}>
       {/* Logo */}
-      <div className={styles.logo}>
+      <div onClick={() =>navigate("/")} className={styles.logo}>
         <h1 className={styles.logoHead}>MyKart</h1>
         <p className={styles.logoText}>Explore Plus</p>
       </div>

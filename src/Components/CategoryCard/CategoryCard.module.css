@@ -1,20 +1,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 .menuContainer {
-  padding: 85px 0px 10px 1%;
+  padding: 90px 1% 20px 1%;
+  width: 99%;
+  background-color: #f1f3f6;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 99%;
 }
 
 .contents {
-  padding: 9px;
+  padding: 1rem;
   width: 98%;
   background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+@media (max-width: 992px) {
+  .contents {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+}
+@media (max-width: 580px) {
+  .contents {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    gap: 1rem;
+  }
 }/*# sourceMappingURL=CategoryCard.module.css.map */
