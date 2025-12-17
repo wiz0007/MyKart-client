@@ -1,10 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import AllRoutes from './routes/AllRoutes'
+import { useState } from "react";
+import "./App.css";
+import AllRoutes from "./routes/AllRoutes";
+import ScrollToTop from "./routes/ScrollToTop";
 
 function App() {
   return (
-    <div><AllRoutes/></div>    
-  )
+    <div>
+      <ScrollToTop/>
+      <AllRoutes />
+    </div>
+  );
 }
-export default App
+export default App;
