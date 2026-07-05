@@ -1,102 +1,220 @@
-@use "../../styles/mixin" as *;
-.addressSection {
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  @include Flex(column, flex-start, stretch);
-  gap: 1rem;
+﻿.addressSection {
+  padding: 22px;
+  border: 1px solid var(--mk-line);
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.84);
+  box-shadow: 0 16px 42px rgba(23, 33, 29, 0.07);
 }
 
-// 🔹 Header
-.header {
-  @include Flex(row, space-between, center);
-  margin-bottom: 1rem;
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--mk-primary-dark);
+
+  span {
+    color: var(--mk-primary);
+    font-size: 0.76rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
 
   h2 {
-    @include Text(1.4rem, #333);
-    font-weight: 600;
-  }
-
-  .addButton {
-    background: #007bff;
-    color: #fff;
-    padding: 0.6rem 1.2rem;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s ease;
-
-    &:hover {
-      background: #0056b3;
-    }
+    color: var(--mk-ink);
+    font-size: 1.4rem;
   }
 }
 
-// 🔹 Address Card
+.addressList {
+  display: grid;
+  gap: 12px;
+}
+
 .addressCard {
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px;
+  border: 1px solid var(--mk-line);
   border-radius: 12px;
-  padding: 1rem;
-  transition: 0.3s ease;
+  background: #fff;
+  color: var(--mk-ink);
   cursor: pointer;
+  text-align: left;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    border-color: rgba(13, 127, 115, 0.28);
+    transform: translateY(-2px);
+  }
+}
+
+.selected {
+  border-color: rgba(13, 127, 115, 0.48);
+  background: rgba(13, 127, 115, 0.07);
+
+  .radioDot::after {
+    opacity: 1;
+  }
+}
+
+.radioDot {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  margin-top: 2px;
+  border: 2px solid var(--mk-primary);
+  border-radius: 999px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: inherit;
+    background: var(--mk-primary);
+    opacity: 0;
+  }
+}
+
+.addressIcon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--mk-bg);
+  color: var(--mk-primary-dark);
+}
+
+.addressText {
+  display: grid;
+  gap: 4px;
+
+  strong {
+    font-size: 0.98rem;
   }
 
-  .details {
-    @include Text(1rem, #444);
-    line-height: 1.6;
+  small {
+    color: var(--mk-muted);
+    line-height: 1.35;
   }
+}
 
-  .actions {
-    margin-top: 0.8rem;
-    @include Flex(row, flex-end, center);
-    gap: 0.6rem;
+.addAddressButton,
+.btnPrimary,
+.btnSecondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 850;
+  transition: background 180ms ease, transform 180ms ease;
 
-    button {
-      padding: 0.4rem 0.8rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: 0.2s ease;
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
 
-      &.edit {
-        background: #ffc107;
-        color: #fff;
+.addAddressButton {
+  width: 100%;
+  margin-top: 14px;
+  background: #fff;
+  color: var(--mk-primary-dark);
+  border: 1px dashed rgba(13, 127, 115, 0.42);
 
-        &:hover {
-          background: #e0a800;
-        }
-      }
+  &:hover {
+    background: rgba(13, 127, 115, 0.07);
+  }
+}
 
-      &.delete {
-        background: #dc3545;
-        color: #fff;
+.addressForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid var(--mk-line);
 
-        &:hover {
-          background: #b02a37;
-        }
-      }
+  input {
+    min-height: 44px;
+    min-width: 0;
+    padding: 0 12px;
+    border: 1px solid var(--mk-line);
+    border-radius: 8px;
+    background: var(--mk-surface);
+    color: var(--mk-ink);
+    outline: 0;
+
+    &:focus {
+      border-color: rgba(13, 127, 115, 0.5);
+      box-shadow: 0 0 0 3px rgba(13, 127, 115, 0.1);
     }
   }
 }
 
-// 🔹 Empty State
-.emptyState {
-  @include Flex(column, center, center);
-  text-align: center;
-  color: #888;
-  padding: 2rem;
+.formActions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
 
-  p {
-    @include Text(1rem, #666);
-    margin-top: 0.5rem;
+.btnPrimary {
+  padding: 0 16px;
+  background: var(--mk-primary);
+  color: #fff;
+
+  &:hover {
+    background: var(--mk-primary-dark);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
   }
 }
 
+.btnSecondary {
+  padding: 0 16px;
+  background: #fff;
+  color: var(--mk-ink);
+  border: 1px solid var(--mk-line);
 
+  &:hover {
+    background: var(--mk-bg);
+  }
+}
+
+.loadingState {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mk-muted);
+  font-weight: 750;
+}
+
+@media (max-width: 640px) {
+  .addressSection {
+    padding: 16px;
+  }
+
+  .addressForm {
+    grid-template-columns: 1fr;
+  }
+
+  .formActions {
+    flex-direction: column-reverse;
+  }
+}

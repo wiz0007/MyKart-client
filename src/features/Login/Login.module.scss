@@ -1,203 +1,156 @@
-@use "../../styles/mixin" as *;
-
 .authContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #e3f2fd, #eff1f3);
-  padding: 1rem;
+  width: 100%;
+  padding: 118px 16px 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .form {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  padding: 2.5rem 2rem;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.7s ease;
+  width: min(430px, 100%);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-}
+  gap: 14px;
+  padding: 28px;
+  border: 1px solid var(--mk-line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(23, 33, 29, 0.08);
 
-.heading {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #0d47a1;
-}
-
-.subHeading {
-  font-size: 0.95rem;
-  color: #444;
-  margin-bottom: 0.8rem;
+  h1 {
+    margin-bottom: 4px;
+    color: var(--mk-ink);
+    font-size: 1.9rem;
+    line-height: 1;
+  }
 }
 
 .inputGroup {
-  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid var(--mk-line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--mk-muted);
+
+  &:focus-within {
+    border-color: rgba(13, 127, 115, 0.48);
+    box-shadow: 0 0 0 3px rgba(13, 127, 115, 0.1);
+  }
 
   input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    transition: all 0.3s ease;
+    min-width: 0;
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--mk-ink);
+    font-size: 0.98rem;
+  }
+}
 
-    &:focus {
-      border-color: #1976d2;
-      box-shadow: 0 0 6px rgba(25, 118, 210, 0.3);
-    }
+.eyeIcon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mk-muted);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--mk-bg);
+    color: var(--mk-primary-dark);
   }
 }
 
 .loginBtn {
-  width: 100%;
-  padding: 0.8rem;
-  background-color: #1976d2;
-  color: white;
-  border: none;
+  min-height: 48px;
+  border-radius: 999px;
+  background: var(--mk-primary);
+  color: #fff;
   cursor: pointer;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 900;
 
   &:hover {
-    background-color: #0d47a1;
-    transform: scale(1.02);
+    background: var(--mk-primary-dark);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.68;
   }
 }
 
 .redirectText {
-  font-size: 0.9rem;
-  color: #444;
-}
+  color: var(--mk-muted);
+  font-size: 0.92rem;
+  text-align: center;
 
-.link {
-  color: #1976d2;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
+  button {
+    background: transparent;
+    color: var(--mk-primary-dark);
+    cursor: pointer;
+    font-weight: 850;
   }
 }
 
-.error {
-  color: #e53935;
+.notice {
+  padding: 10px 12px;
+  border: 1px solid rgba(13, 127, 115, 0.18);
+  border-radius: 8px;
+  background: rgba(13, 127, 115, 0.08);
+  color: var(--mk-primary-dark);
   font-size: 0.9rem;
-  background: #ffebee;
-  padding: 0.5rem;
-  border-radius: 6px;
-  width: 100%;
-  text-align: center;
+  font-weight: 750;
+}
+
+.error {
+  padding: 10px 12px;
+  border: 1px solid rgba(194, 65, 53, 0.2);
+  border-radius: 8px;
+  background: rgba(194, 65, 53, 0.08);
+  color: var(--mk-danger);
+  font-size: 0.9rem;
+  font-weight: 750;
 }
 
 .divider {
-  width: 100%;
   display: flex;
   align-items: center;
-  text-align: center;
-  margin: 1rem 0;
-  color: #666;
-  font-size: 0.9rem;
+  gap: 12px;
+  color: var(--mk-muted);
+  font-size: 0.84rem;
+  font-weight: 750;
 
   &::before,
   &::after {
     content: "";
     flex: 1;
-    border-bottom: 1px solid #ccc;
-  }
-
-  span {
-    padding: 0 0.8rem;
+    height: 1px;
+    background: var(--mk-line);
   }
 }
 
 .socialButtons {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  justify-content: center;
   width: 100%;
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: white;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background: #f1f1f1;
-      transform: translateY(-2px);
-    }
-
-    img {
-      width: 20px;
-      height: 20px;
-    }
-  }
+  min-height: 44px;
 }
 
-/* Subtle fade-in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@media (max-width: 520px) {
+  .authContainer {
+    padding-top: 88px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-/* 📱 Mobile Responsiveness */
-@media (max-width: 480px) {
   .form {
-    padding: 2rem 1.3rem;
-  }
-
-  .heading {
-    font-size: 1.5rem;
-  }
-
-  .loginBtn {
-    font-size: 0.95rem;
-  }
-}
-
-
-.passwordContainer {
-  position: relative;
-  width: 100%;
-
-  input {
-    width: 100%;
-    padding-right: 2.5rem;
-  }
-
-  .eyeIcon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: #1976d2;
-    }
+    padding: 22px;
   }
 }

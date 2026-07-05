@@ -1,39 +1,52 @@
-import React from "react";
+﻿import React from "react";
+import { ArrowRight, Mail, ShieldCheck, Truck } from "lucide-react";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <div className={styles.logo}>
+        <div className={styles.logoBlock}>
+          <span className={styles.brandMark}>M</span>
           <h2>MyKart</h2>
-          <p>Affordable shopping at your fingertips.</p>
         </div>
 
-        <div className={styles.links}>
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/categories">Categories</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/about">About Us</a></li>
-          </ul>
+        <div className={styles.promiseStrip}>
+          <span><Truck size={18} /> Fast dispatch</span>
+          <span><ShieldCheck size={18} /> Secure payments</span>
+          <span><Mail size={18} /> Offer alerts</span>
         </div>
 
-        <div className={styles.newsletter}>
-          <h4>Newsletter</h4>
-          <p>Stay updated with our latest offers</p>
-          <form>
-            <input type="email" placeholder="Enter your email" />
-            <button type="submit">Subscribe</button>
-          </form>
+        <div className={styles.linksGrid}>
+          <div>
+            <h3>Shop</h3>
+            <a href="/">Home</a>
+            <a href="/NotFound">Categories</a>
+            <a href="/Cart">Cart</a>
+          </div>
+          <div>
+            <h3>Account</h3>
+            <a href="/Login">Login</a>
+            <a href="/Signup">Create account</a>
+            <a href="/NotFound">Orders</a>
+          </div>
+          <div className={styles.newsletter}>
+            <h3>Newsletter</h3>
+            <form>
+              <input type="email" placeholder="Email address" aria-label="Email address" />
+              <button type="submit" aria-label="Subscribe">
+                <ArrowRight size={18} />
+              </button>
+            </form>
+          </div>
         </div>
       </div>
       <div className={styles.bottom}>
-        <p>© {new Date().getFullYear()} MyKart. All rights reserved.</p>
+        <p>Copyright {new Date().getFullYear()} MyKart. All rights reserved.</p>
       </div>
     </footer>
   );
 };
 
 export default Footer;
+

@@ -1,3 +1,14 @@
-.Home{
-    width: 100%;
+﻿.Home {
+  width: 100%;
+}
+
+.homeShell {
+  width: 100%;
+  padding-top: 82px;
+}
+
+@media (max-width: 820px) {
+  .homeShell {
+    padding-top: 68px;
+  }
 }

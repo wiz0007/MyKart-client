@@ -1,29 +1,21 @@
-import React from "react";
+﻿import React, { useContext } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
+import { AuthContext } from "../../../context/AuthContext";
+
+const API_BASE = "https://my-kart-server-3.onrender.com";
 
 const SocialLoginButtons = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
   const handleSuccess = async (credentialResponse) => {
     try {
       const { credential } = credentialResponse;
-
-      // Call backend Google login
-      const res = await axios.post(
-        "https://my-kart-server-3.onrender.com/api/auth/google",
-        { token: credential }
-      );
-
-      const { token, user } = res.data;
-
-      // Store token and user in localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      // Redirect to home page
+      const res = await axios.post(`${API_BASE}/api/auth/google`, { token: credential }, { withCredentials: true });
+      setUser(res.data.user || null);
       navigate("/");
     } catch (error) {
       console.error("Login Failed:", error.response?.data || error.message);
@@ -38,7 +30,6 @@ const SocialLoginButtons = () => {
 
   return (
     <div className={styles.socialButtons}>
-      {/* Google login button */}
       <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
     </div>
   );

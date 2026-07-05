@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import styles from "./Login.module.scss";
+
+const API_BASE = "https://my-kart-server-3.onrender.com";
 
 const VerifyEmail = () => {
   const { token } = useParams();
@@ -11,14 +14,10 @@ const VerifyEmail = () => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const res = await axios.get(`https://my-kart-server-3.onrender.com/api/auth/verify-email/${token}`);
+        const res = await axios.get(`${API_BASE}/api/auth/verify-email/${token}`);
         setMessage(res.data.msg || "Email verified successfully.");
         setSuccess(true);
-
-        // Optional: redirect after a delay
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
+        window.setTimeout(() => navigate("/Login"), 1800);
       } catch (err) {
         setMessage(err.response?.data?.msg || "Verification failed.");
         setSuccess(false);
@@ -29,11 +28,12 @@ const VerifyEmail = () => {
   }, [token, navigate]);
 
   return (
-    <div style={{ textAlign: "center", padding: "50px" }}>
-      <h2>{success === null ? "Please wait..." : success ? "Success!" : "Oops!"}</h2>
-      <p>{message}</p>
-      {success && <p>Redirecting to login...</p>}
-    </div>
+    <main className={styles.authContainer}>
+      <section className={styles.form}>
+        <h1>{success === null ? "Verifying" : success ? "Verified" : "Link expired"}</h1>
+        <p className={success === false ? styles.error : styles.notice}>{message}</p>
+      </section>
+    </main>
   );
 };
 

@@ -1,15 +1,12 @@
 import React from "react";
 import Login from "../../features/Login/Login";
-import Navbar from "../../Components/Navbar/Navbar";
-import Footer from "../../Components/Footer/Footer";
+import AuthShell from "./AuthShell";
 
 const LoginPage = () => {
   return (
-    <div>
-      <Navbar />
+    <AuthShell>
       <Login />
-      <Footer />
-    </div>
+    </AuthShell>
   );
 };
 

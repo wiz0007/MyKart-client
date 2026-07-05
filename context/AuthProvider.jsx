@@ -1,21 +1,33 @@
-import { createContext, useEffect, useState } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
-export const AuthContext = createContext();
+const API_BASE = "https://my-kart-server-3.onrender.com";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Auto-load user from localStorage (if token/user is stored)
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/api/auth/me`, { withCredentials: true });
+      setUser(res.data.user || null);
+    } catch {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  useEffect(() => {
+    refreshUser();
+  }, [refreshUser]);
+
+  const value = useMemo(() => ({ user, setUser, loading, refreshUser }), [user, loading, refreshUser]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
+
+

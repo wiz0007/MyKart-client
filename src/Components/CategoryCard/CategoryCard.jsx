@@ -1,27 +1,27 @@
-import React from "react";
+﻿import React from "react";
 import styles from "./CategoryCard.module.scss";
 import CategoryItem from "./CategoryItem";
-import mobileImg from '../../assets/mobile.png'
-import applianceImg from '../../assets/appliances.png'
-import fashionImg from '../../assets/fashion.png'
-import beautyImg from '../../assets/beauty.png'
+import mobileImg from "../../assets/mobile.png";
+import applianceImg from "../../assets/appliances.png";
+import fashionImg from "../../assets/fashion.png";
+import beautyImg from "../../assets/beauty.png";
 
+const categories = [
+  { name: "Electronics", image: mobileImg, target: "category-electronics" },
+  { name: "Appliances", image: applianceImg, target: "category-healthcare" },
+  { name: "Fashion", image: fashionImg, target: "category-fashion" },
+  { name: "Beauty", image: beautyImg, target: "category-beauty" },
+];
 
 const CategoryCard = () => {
-
-  const handle404Click = () => {
-    navigate("/NotFound");
-  };
-
   return (
-    <div className={styles.menuContainer}>
+    <section className={styles.menuContainer} aria-label="Shop by category">
       <div className={styles.contents}>
-        <CategoryItem name="Mobiles and Tablets" image={mobileImg}  link="" /> 
-        <CategoryItem name="Home Appliances" image={applianceImg} link="" /> 
-        <CategoryItem name="Fashion" image={fashionImg} link="" /> 
-        <CategoryItem name="Beauty" image={beautyImg} link="" /> 
+        {categories.map((category) => (
+          <CategoryItem key={category.name} {...category} />
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 

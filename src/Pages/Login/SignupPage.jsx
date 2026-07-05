@@ -1,16 +1,12 @@
 import React from "react";
 import Signup from "../../features/Login/Signup";
-import Navbar from "../../Components/Navbar/Navbar";
-import Footer from "../../Components/Footer/Footer";
+import AuthShell from "./AuthShell";
 
 const SignupPage = () => {
   return (
-    <div>
-      <Navbar />
-
+    <AuthShell>
       <Signup />
-      <Footer />
-    </div>
+    </AuthShell>
   );
 };
 

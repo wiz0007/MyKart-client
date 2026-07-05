@@ -5,6 +5,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "../context/AuthProvider.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import "./lib/apiSecurity";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -17,3 +18,6 @@ createRoot(document.getElementById("root")).render(
     </BrowserRouter>
   </StrictMode>
 );
+
+
+

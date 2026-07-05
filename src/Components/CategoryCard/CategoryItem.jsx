@@ -1,20 +1,16 @@
-import React from "react";
+﻿import React from "react";
 import styles from "./CategoryItem.module.scss";
-import { useNavigate } from "react-router-dom";
 
-const CategoryItem = (props) => {
-  const navigate = useNavigate();
-
-  const handle404Click = () => {
-    navigate("/NotFound");
+const CategoryItem = ({ image, name, target }) => {
+  const scrollToCategory = () => {
+    document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
   return (
-    <div onClick={handle404Click} className={styles.itemContainer}>
-      <img src={props.image} alt="image" className={styles.itemImg} />
-      <a href={props.link} className={styles.itemName}>
-        {props.name}
-      </a>
-    </div>
+    <button type="button" onClick={scrollToCategory} className={styles.itemContainer}>
+      <img src={image} alt={name} className={styles.itemImg} />
+      <span>{name}</span>
+    </button>
   );
 };
 

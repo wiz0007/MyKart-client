@@ -1,0 +1,54 @@
+.authShell {
+  min-height: 100vh;
+  background: var(--mk-bg);
+}
+
+.authNav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  padding: 0 max(18px, calc((100vw - var(--mk-container)) / 2));
+  border-bottom: 1px solid rgba(23, 33, 29, 0.08);
+  background: rgba(255, 253, 248, 0.94);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--mk-ink);
+  text-decoration: none;
+
+  strong {
+    font-size: 1.18rem;
+    letter-spacing: 0;
+  }
+}
+
+.brandMark {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--mk-ink);
+  color: var(--mk-accent);
+  font-weight: 900;
+  box-shadow: 0 12px 26px rgba(23, 33, 29, 0.16);
+}
+
+@media (max-width: 640px) {
+  .authNav {
+    height: 64px;
+  }
+
+  .brandMark {
+    width: 36px;
+    height: 36px;
+  }
+}

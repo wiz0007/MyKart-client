@@ -1,163 +1,67 @@
-@use "../../styles/mixin" as *;
+﻿.heroSection {
+  width: min(1480px, calc(100vw - 28px));
+  margin: 14px auto 0;
+}
 
-.heroContainer {
-  display: grid;
-  grid-template-columns: 3fr 1fr; // ✅ Equal row height, side-by-side
-  gap: 1.5rem;
-  padding: 1rem 2rem;
-  background-color: #f1f3f6;
-  align-items: stretch; // ✅ Ensures same height both sides
-  width: 100%;
+.heroSwiper {
+  height: clamp(190px, 25vw, 360px);
+  border: 1px solid var(--mk-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 14px 36px rgba(23, 33, 29, 0.08);
 
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    padding: 0.5rem;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  :global(.swiper-button-prev),
+  :global(.swiper-button-next) {
+    width: 38px;
+    height: 58px;
+    margin-top: -29px;
+    border-radius: 0 8px 8px 0;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--mk-ink);
+    box-shadow: 0 10px 22px rgba(23, 33, 29, 0.14);
+
+    &::after {
+      font-size: 18px;
+      font-weight: 900;
+    }
+  }
+
+  :global(.swiper-button-next) {
+    border-radius: 8px 0 0 8px;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    width: 18px;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    background: var(--mk-accent);
   }
 }
 
-/* ------------------ Banner Section ------------------ */
-.bannerContainer {
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  width: 100%;
-  height: 100%; // ✅ Matches height of offers section automatically
-
-  // 🔽 Make banner a bit shorter on desktop
-  @media (min-width: 992px) {
-    max-height: 300px;
+@media (max-width: 640px) {
+  .heroSection {
+    width: calc(100vw - 20px);
+    margin-top: 10px;
   }
 
   .heroSwiper {
-    width: 100%;
-    height: 100% !important;
+    border-radius: 8px;
 
-    .swiper-slide {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #fff;
-    }
-
-    .swiper-pagination-bullet {
-      background: #2874f0 !important;
-      opacity: 1;
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      color: #fff;
-      transition: 0.3s;
-      &:hover {
-        color: #2874f0;
-      }
-    }
-  }
-
-  .mainBanner {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; // ✅ Keeps banner full & aligned
-    border-radius: 12px;
-    transition: transform 0.4s ease, filter 0.3s ease;
-
-    &:hover {
-      transform: scale(1.02);
-      filter: brightness(1.05);
-    }
-  }
-}
-
-/* ------------------ Offer Section ------------------ */
-.sideOffers {
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-  height: 100%;
-  overflow: hidden;
-
-  @media (min-width: 992px) {
-    max-height: 300px; // ✅ compact hero height
-  }
-
-  @media (max-width: 992px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.8rem;
-    height: auto;
-  }
-
-  .offerCard {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    cursor: pointer;
-    text-align: left;
-    flex: 1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.8rem;
-    min-height: 28%;
-    padding: 0.5rem;
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Image and Text (Desktop view) */
-    .offerImage {
-      width: 45%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-      transition: transform 0.4s ease;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-
-    .offerText {
-      @include Text(0.95rem, #212121);
-      font-weight: 600;
-      line-height: 1.3;
-      flex: 1;
-      padding-right: 0.5rem;
-      text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* --- Keep mobile exactly same as before --- */
-    @media (max-width: 992px) {
-      flex-direction: column; // ✅ back to vertical stack
-      align-items: center;
-      justify-content: space-between;
-      min-height: 31%; // ✅ keep same card proportions
-      padding: 0;
-
-      .offerImage {
-        width: 100%;
-        height: 75%;
-        border-radius: 0;
-      }
-
-      .offerText {
-        text-align: center;
-        padding: 0.6rem 0.4rem;
-        white-space: normal;
-      }
+    :global(.swiper-button-prev),
+    :global(.swiper-button-next) {
+      display: none;
     }
   }
 }

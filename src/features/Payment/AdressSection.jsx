@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
+import { Home, MapPin, Plus, Save, X } from "lucide-react";
 import styles from "./AddressSection.module.scss";
 
-const AddressSection = ({ userId, onProceed }) => {
+const API_BASE = "https://my-kart-server-3.onrender.com";
+
+const AddressSection = ({ userId, onSelectAddress }) => {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-
   const [form, setForm] = useState({
     fullName: "",
     phone: "",
@@ -19,34 +21,35 @@ const AddressSection = ({ userId, onProceed }) => {
     country: "India",
   });
 
-  const token = localStorage.getItem("token");
-  const authHeader = token ? { Authorization: `Bearer ${token}` } : {};
+  const selectAddress = useCallback((address) => {
+    setSelectedAddress(address);
+    onSelectAddress?.(address);
+  }, [onSelectAddress]);
 
-  // Fetch addresses
-  const fetchAddresses = async () => {
-    if (!userId) return;
+  const fetchAddresses = useCallback(async () => {
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
-      const res = await axios.get(
-        `https://my-kart-server-3.onrender.com/api/addresses/${userId}`,
-        { headers: authHeader }
-      );
-      setAddresses(res.data || []);
-      // auto-select first address
-      if (res.data?.length > 0) setSelectedAddress(res.data[0]);
+      const res = await axios.get(`${API_BASE}/api/addresses/${userId}`, { withCredentials: true });
+      const nextAddresses = res.data || [];
+      setAddresses(nextAddresses);
+      if (nextAddresses.length > 0) selectAddress(nextAddresses[0]);
     } catch (err) {
       console.error("Error fetching addresses:", err);
       setAddresses([]);
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId, selectAddress]);
 
   useEffect(() => {
     fetchAddresses();
-  }, [userId]);
+  }, [fetchAddresses]);
 
-  // Form handlers
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -69,16 +72,11 @@ const AddressSection = ({ userId, onProceed }) => {
     if (!userId) return;
     setSubmitting(true);
     try {
-      const res = await axios.post(
-        "https://my-kart-server-3.onrender.com/api/addresses",
-        { userId, ...form },
-        { headers: authHeader }
-      );
-
+      const res = await axios.post(`${API_BASE}/api/addresses`, { userId, ...form }, { withCredentials: true });
       const created = res.data;
       if (created) {
         setAddresses((prev) => [...prev, created]);
-        setSelectedAddress(created); // select newly added
+        selectAddress(created);
       }
       setAdding(false);
       resetForm();
@@ -89,94 +87,78 @@ const AddressSection = ({ userId, onProceed }) => {
     }
   };
 
-  const handleProceedToPayment = () => {
-    if (selectedAddress && onProceed) {
-      onProceed(selectedAddress);
-    }
-  };
-
-  if (loading) return <p>Loading addresses…</p>;
-
   return (
-    <div className={styles.addressSection}>
-      <h3>Delivery Address</h3>
+    <section className={styles.addressSection}>
+      <div className={styles.sectionTitle}>
+        <MapPin size={20} />
+        <div>
+          <span>Step 1</span>
+          <h2>Delivery address</h2>
+        </div>
+      </div>
 
-      {addresses.length === 0 && !adding && (
-        <button className={styles.btnPrimary} onClick={() => setAdding(true)}>
-          + Add Address
-        </button>
-      )}
-
-      {addresses.length > 0 && (
+      {loading ? (
+        <div className={styles.loadingState}>Loading addresses...</div>
+      ) : (
         <>
-          <div className={styles.addressList}>
-            {addresses.map((addr) => (
-              <div
-                key={addr._id}
-                className={`${styles.addressCard} ${
-                  selectedAddress?._id === addr._id ? styles.selected : ""
-                }`}
-                onClick={() => setSelectedAddress(addr)}
-              >
-                <input
-                  type="radio"
-                  name="selectedAddress"
-                  checked={selectedAddress?._id === addr._id}
-                  readOnly
-                />
-                <p><b>{addr.fullName}</b></p>
-                <p>{addr.street}</p>
-                <p>{addr.city}, {addr.state} {addr.postalCode}</p>
-                <p>{addr.country}</p>
-                <p>📞 {addr.phone}</p>
-              </div>
-            ))}
-          </div>
+          {addresses.length > 0 && (
+            <div className={styles.addressList}>
+              {addresses.map((addr) => (
+                <button
+                  type="button"
+                  key={addr._id}
+                  className={`${styles.addressCard} ${selectedAddress?._id === addr._id ? styles.selected : ""}`}
+                  onClick={() => selectAddress(addr)}
+                >
+                  <span className={styles.radioDot} />
+                  <span className={styles.addressIcon}><Home size={18} /></span>
+                  <span className={styles.addressText}>
+                    <strong>{addr.fullName}</strong>
+                    <small>{addr.street}</small>
+                    <small>{addr.city}, {addr.state} {addr.postalCode}</small>
+                    <small>{addr.country} | {addr.phone}</small>
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
 
           {!adding && (
-            <button
-              className={styles.btnSecondary}
-              onClick={() => setAdding(true)}
-            >
-              + Add Another Address
+            <button type="button" className={styles.addAddressButton} onClick={() => setAdding(true)}>
+              <Plus size={17} />
+              {addresses.length ? "Add another address" : "Add delivery address"}
             </button>
           )}
 
-          {/* {selectedAddress && (
-            <button
-              className={styles.btnPrimary}
-              onClick={handleProceedToPayment}
-            >
-              Proceed to Payment
-            </button>
-          )} */}
+          {adding && (
+            <form className={styles.addressForm} onSubmit={onSubmit}>
+              <input name="fullName" placeholder="Full name" value={form.fullName} onChange={onChange} required />
+              <input name="phone" placeholder="Phone" value={form.phone} onChange={onChange} required />
+              <input name="street" placeholder="House no., street, area" value={form.street} onChange={onChange} required />
+              <input name="city" placeholder="City" value={form.city} onChange={onChange} required />
+              <input name="state" placeholder="State" value={form.state} onChange={onChange} required />
+              <input name="postalCode" placeholder="PIN code" value={form.postalCode} onChange={onChange} required />
+              <input name="country" placeholder="Country" value={form.country} onChange={onChange} required />
+
+              <div className={styles.formActions}>
+                <button type="button" className={styles.btnSecondary} onClick={() => { setAdding(false); resetForm(); }}>
+                  <X size={17} />
+                  Cancel
+                </button>
+                <button type="submit" className={styles.btnPrimary} disabled={submitting}>
+                  <Save size={17} />
+                  {submitting ? "Saving..." : "Save address"}
+                </button>
+              </div>
+            </form>
+          )}
         </>
       )}
-
-      {adding && (
-        <form className={styles.addressForm} onSubmit={onSubmit}>
-          <input name="fullName" placeholder="Full Name" value={form.fullName} onChange={onChange} required />
-          <input name="phone" placeholder="Phone" value={form.phone} onChange={onChange} required />
-          <input name="street" placeholder="House no., Street, Area" value={form.street} onChange={onChange} required />
-          <input name="city" placeholder="City" value={form.city} onChange={onChange} required />
-          <input name="state" placeholder="State" value={form.state} onChange={onChange} required />
-          <input name="postalCode" placeholder="PIN Code" value={form.postalCode} onChange={onChange} required />
-          <input name="country" placeholder="Country" value={form.country} onChange={onChange} required />
-
-          <div className={styles.formActions}>
-            <button type="button" className={styles.btnSecondary} onClick={() => { setAdding(false); resetForm(); }}>
-              Cancel
-            </button>
-            <button type="submit" className={styles.btnPrimary} disabled={submitting}>
-              {submitting ? "Saving…" : "Save Address"}
-            </button>
-          </div>
-        </form>
-      )}
-    </div>
+    </section>
   );
 };
 
 export default AddressSection;
+
 
 

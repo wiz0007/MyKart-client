@@ -1,212 +1,228 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+﻿import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
-  FiSearch,
-  FiUser,
-  FiShoppingCart,
-  FiChevronDown,
-  FiMoreVertical,
-  FiBell,
-  FiHeadphones,
-  FiTrendingUp,
-  FiDownload,
-  FiHeart,
-  FiBox,
-  FiStar,
-  FiCreditCard,
-  FiLogOut,
-} from "react-icons/fi";
+  Bell,
+  ChevronDown,
+  CreditCard,
+  Download,
+  Heart,
+  Headphones,
+  LogOut,
+  Menu,
+  Package,
+  Search,
+  ShieldCheck,
+  ShoppingCart,
+  Sparkles,
+  Star,
+  TrendingUp,
+  User,
+  X,
+} from "lucide-react";
 import styles from "./Navbar.module.scss";
+import { AuthContext } from "../../../context/AuthContext";
+
+const API_BASE = "https://my-kart-server-3.onrender.com";
+
+const menuItems = [
+  { label: "Notifications", icon: Bell },
+  { label: "Customer care", icon: Headphones },
+  { label: "Trending deals", icon: TrendingUp },
+  { label: "Download app", icon: Download },
+];
+
+const accountItems = [
+  { label: "My profile", icon: User },
+  { label: "MyKart Plus", icon: Star },
+  { label: "Orders", icon: Package },
+  { label: "Wishlist", icon: Heart },
+  { label: "Gift cards", icon: CreditCard },
+];
 
 const Navbar = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showLoginMenu, setShowLoginMenu] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
+  const [showAccount, setShowAccount] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
-
-  const dropdownRef = useRef(null);
-  const mobileSearchRef = useRef(null);
+  const [query, setQuery] = useState("");
+  const { user, setUser } = useContext(AuthContext);
+  const navRef = useRef(null);
   const navigate = useNavigate();
+  const isLoggedIn = Boolean(user);
+  const username = user?.name || "User";
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
-    if (token && user) {
-      const parsed = JSON.parse(user);
-      setUsername(parsed.name || "User");
-      setIsLoggedIn(true);
-    } else setIsLoggedIn(false);
-  }, []);
-
-  // Close mobile search on outside click or Esc
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        mobileSearchRef.current &&
-        !mobileSearchRef.current.contains(e.target)
-      ) {
+    const closeMenus = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setShowMenu(false);
+        setShowAccount(false);
         setShowMobileSearch(false);
       }
     };
 
-    const handleEsc = (e) => {
-      if (e.key === "Escape") setShowMobileSearch(false);
+    const closeOnEsc = (event) => {
+      if (event.key === "Escape") {
+        setShowMenu(false);
+        setShowAccount(false);
+        setShowMobileSearch(false);
+      }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
+    document.addEventListener("mousedown", closeMenus);
+    document.addEventListener("keydown", closeOnEsc);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
+      document.removeEventListener("mousedown", closeMenus);
+      document.removeEventListener("keydown", closeOnEsc);
     };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${API_BASE}/api/auth/logout`, {}, { withCredentials: true });
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      setUser(null);
+      setShowAccount(false);
+      navigate("/Login");
+    }
   };
 
-  const handle404Click = () => navigate("/NotFound");
-  const handleLoginClick = () => navigate("/Login");
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (query.trim()) {
+      navigate("/NotFound");
+      setShowMobileSearch(false);
+    }
+  };
+
+  const goToFallback = () => {
+    setShowMenu(false);
+    setShowAccount(false);
+    navigate("/NotFound");
+  };
 
   return (
-    <header className={styles.navContainer}>
-      {/* Logo */}
-      <div onClick={() =>navigate("/")} className={styles.logo}>
-        <h1 className={styles.logoHead}>MyKart</h1>
-        <p className={styles.logoText}>Explore Plus</p>
-      </div>
-
-      {/* Desktop Search */}
-      <div className={styles.searchTab}>
-        <FiSearch className={styles.searchIcon} />
-        <input
-          type="text"
-          placeholder="Search for Products, Brands and More"
-          className={styles.input}
-        />
-      </div>
-
-      {/* Right Section */}
-      <div className={styles.navRight}>
-        {/* Mobile Search Icon */}
-        <div
-          className={styles.mobileSearchIcon}
-          onClick={() => setShowMobileSearch(!showMobileSearch)}
-        >
-          <FiSearch />
-        </div>
-
-        {/* Login / User */}
-        <div
-          onClick={!isLoggedIn ? handleLoginClick : undefined}
-          className={styles.loginContainer}
-          onMouseEnter={() => setShowLoginMenu(true)}
-          onMouseLeave={() => setShowLoginMenu(false)}
-        >
-          <div className={styles.loginButton}>
-            <FiUser className={styles.icon} />
-            <span>{isLoggedIn ? username : "Login"}</span>
-            <FiChevronDown className={styles.icon} />
-          </div>
-
-          {showLoginMenu && (
-            <div className={`${styles.dropdown} ${styles.fadeIn}`}>
-              {!isLoggedIn && (
-                <div className={styles.topRow}>
-                  <span>New customer?</span>
-                  <span
-                    className={styles.signup}
-                    onClick={() => navigate("/Signup")}
-                  >
-                    Sign Up
-                  </span>
-                </div>
-              )}
-              <div onClick={handle404Click} className={styles.menuItem}>
-                <FiUser /> My Profile
-              </div>
-              <div onClick={handle404Click} className={styles.menuItem}>
-                <FiStar /> MyKart Plus Zone
-              </div>
-              <div onClick={handle404Click} className={styles.menuItem}>
-                <FiBox /> Orders
-              </div>
-              <div onClick={handle404Click} className={styles.menuItem}>
-                <FiHeart /> Wishlist
-              </div>
-              <div onClick={handle404Click} className={styles.menuItem}>
-                <FiCreditCard /> Gift Cards
-              </div>
-              {isLoggedIn && (
-                <div onClick={handleLogout} className={styles.menuItem}>
-                  <FiLogOut /> Logout
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Cart */}
-        <Link
-          to="/cart"
-          className={styles.cart}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <FiShoppingCart className={styles.icon} />
-          <span className={styles.cartText}>Cart</span>
+    <header className={styles.navShell} ref={navRef}>
+      <div className={styles.navContainer}>
+        <Link to="/" className={styles.brand} aria-label="MyKart home">
+          <span className={styles.brandMark}>M</span>
+          <strong>MyKart</strong>
         </Link>
 
-        {/* Always visible three dots */}
-        <div
-          ref={dropdownRef}
-          className={styles.menuIcon}
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          <FiMoreVertical />
-        </div>
-
-        {showDropdown && (
-          <div className={`${styles.dropdown} ${styles.fadeIn}`}>
-            <div onClick={handle404Click} className={styles.dropdownItem}>
-              <FiBell className={styles.icon} />
-              <span>Notifications</span>
-            </div>
-            <div onClick={handle404Click} className={styles.dropdownItem}>
-              <FiHeadphones className={styles.icon} />
-              <span>Customer Care</span>
-            </div>
-            <div onClick={handle404Click} className={styles.dropdownItem}>
-              <FiTrendingUp className={styles.icon} />
-              <span>Advertise</span>
-            </div>
-            <div onClick={handle404Click} className={styles.dropdownItem}>
-              <FiDownload className={styles.icon} />
-              <span>Download App</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Mobile Search */}
-      <div
-        ref={mobileSearchRef}
-        className={`${styles.mobileSearchWrapper} ${
-          showMobileSearch ? styles.show : ""
-        }`}
-      >
-        <div className={styles.mobileSearchInner}>
-          <FiSearch className={styles.mobileSearchIconInside} />
+        <form className={styles.searchBar} onSubmit={handleSearch}>
+          <Search size={19} aria-hidden="true" />
           <input
-            type="text"
-            placeholder="Search MyKart..."
-            className={styles.mobileSearchInput}
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search products, brands, and categories"
+            aria-label="Search products"
           />
-        </div>
+          <button type="submit">Search</button>
+        </form>
+
+        <nav className={styles.navActions} aria-label="Primary navigation">
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={() => setShowMobileSearch((value) => !value)}
+            aria-label="Open search"
+          >
+            {showMobileSearch ? <X size={20} /> : <Search size={20} />}
+          </button>
+
+          <div className={styles.accountArea}>
+            <button
+              type="button"
+              className={styles.accountButton}
+              onClick={() => {
+                if (!isLoggedIn) navigate("/Login");
+                setShowAccount((value) => !value);
+                setShowMenu(false);
+              }}
+              aria-expanded={showAccount}
+            >
+              <User size={18} />
+              <span>{isLoggedIn ? username : "Login"}</span>
+              <ChevronDown size={16} />
+            </button>
+
+            {showAccount && (
+              <div className={styles.dropdown}>
+                {!isLoggedIn && (
+                  <div className={styles.dropdownTop}>
+                    <span>New here?</span>
+                    <button type="button" onClick={() => navigate("/Signup")}>Create account</button>
+                  </div>
+                )}
+                {accountItems.map(({ label, icon: Icon }) => (
+                  <button type="button" key={label} onClick={goToFallback}>
+                    {React.createElement(Icon, { size: 17 })}
+                    {label}
+                  </button>
+                ))}
+                {isLoggedIn && (
+                  <button type="button" onClick={handleLogout}>
+                    <LogOut size={17} />
+                    Logout
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
+          <Link to="/Cart" className={styles.cartLink}>
+            <ShoppingCart size={19} />
+            <span>Cart</span>
+          </Link>
+
+          <button
+            type="button"
+            className={styles.iconButton}
+            onClick={() => {
+              setShowMenu((value) => !value);
+              setShowAccount(false);
+            }}
+            aria-label="Open more menu"
+            aria-expanded={showMenu}
+          >
+            <Menu size={21} />
+          </button>
+
+          {showMenu && (
+            <div className={`${styles.dropdown} ${styles.moreMenu}`}>
+              <div className={styles.dropdownBadge}>
+                <Sparkles size={16} />
+                Fresh offers every week
+              </div>
+              {menuItems.map(({ label, icon: Icon }) => (
+                <button type="button" key={label} onClick={goToFallback}>
+                  {React.createElement(Icon, { size: 17 })}
+                  {label}
+                </button>
+              ))}
+              <div className={styles.secureNote}>
+                <ShieldCheck size={16} />
+                Secured payments and easy returns
+              </div>
+            </div>
+          )}
+        </nav>
       </div>
+
+      {showMobileSearch && (
+        <form className={styles.mobileSearch} onSubmit={handleSearch}>
+          <Search size={18} />
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search MyKart"
+            autoFocus
+          />
+        </form>
+      )}
     </header>
   );
 };
